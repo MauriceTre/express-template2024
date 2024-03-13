@@ -54,7 +54,7 @@ TodosRouter.put("/mark", async (req, res) => {
 });
 
 TodosRouter.put("/update", async (req, res) => {
-  const { todoId, newTask, newIsDone, newDueDate } = req.body;
+  const {todoId, newTask, newIsDone, newDueDate } = req.body;
 
   await TodoModel.update(
     {

@@ -1,18 +1,19 @@
-require("../../src/server");
 const todoSequelize = require("../../src/database/setup/database");
+const TodoModel = require("../../src/database/models/TodoModel");
+const TestDataTodos = require("./test-data/TestDataTodos");
 
 module.exports = async () => {
   try {
-    // todoSequelize.dropSchema("Todos").then(() => {
-    //   todoSequelize.sync();
-    // });
-    console.log("PRDDD", process.env);
+    // Drop und Sync der Datenbank
+    await todoSequelize.dropSchema("todos");
     await todoSequelize.sync();
-    await todoSequelize.dropSchema("Todos");
-    await todoSequelize.sync();
-    // DB mit Daten füllen, um DB auf Test Szenarien vorzubereiten
-    console.log("Test DB init");
+
+    // Daten in die Datenbank einfügen
+    await TodoModel.bulkCreate(TestDataTodos);
+
+    console.log("Test DB initialized");
   } catch (e) {
-    console.error("MY DB Issue", e);
+    console.error("Error initializing test DB", e);
   }
 };
+
