@@ -28,6 +28,6 @@ todoSequelize
 app.use("/v1", AppRouter);
 
 // App hört im folgenden auf den Port, welcher über die Umgebungsvariable definiert ist
-app.listen(PORT, () => {
+module.exports.handler = serverless(app)(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
